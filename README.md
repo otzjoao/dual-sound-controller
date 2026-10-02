@@ -1,5 +1,28 @@
 # 🎧 Dual Sound Controller
 
+<!-- TOC -->
+<details>
+<summary><strong>📋 Sumário</strong></summary>
+
+- [Sobre o projeto](#-sobre-o-projeto)
+- [Objetivos](#-objetivos)
+- [Conceito](#-conceito)
+- [BLE e áudio](#-ble-e-áudio)
+- [Arquitetura](#️-arquitetura)
+- [Interface atual](#-interface-atual)
+- [Testes](#-testes)
+- [Tecnologias](#️-tecnologias)
+- [Ambiente de desenvolvimento](#-ambiente-de-desenvolvimento)
+- [Como executar o projeto](#-como-executar-o-projeto)
+- [Estrutura do projeto](#-estrutura-do-projeto)
+- [Roadmap](#️-roadmap)
+- [Controle de versão](#-controle-de-versão)
+- [Contexto acadêmico](#-contexto-acadêmico)
+- [Licença](#-licença)
+- [Autor](#-autor)
+
+</details>
+
 Aplicativo mobile desenvolvido em **Flutter** com a proposta de controlar e futuramente sincronizar dispositivos de áudio através de comunicação sem fio.
 
 O **Dual Sound Controller** nasceu da ideia de criar uma solução inspirada em aplicações de sincronização de áudio, permitindo trabalhar com múltiplos dispositivos de áudio a partir de uma interface única e simples.
