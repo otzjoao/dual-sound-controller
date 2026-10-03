@@ -1,0 +1,331 @@
+==================================================
+DUAL SOUND CONTROLLER
+Comandos de desenvolvimento
+==================================================
+
+
+[FLUTTER - VERIFICAÇÃO]
+
+flutter doctor
+# Verifica se o Flutter, Android SDK e demais ferramentas
+# necessárias estão instalados e configurados corretamente.
+
+
+flutter doctor -v
+# Mostra informações detalhadas sobre o ambiente Flutter.
+
+
+flutter --version
+# Mostra a versão instalada do Flutter e do Dart.
+
+
+
+flutter devices
+# Lista os dispositivos disponíveis para executar o aplicativo.
+
+
+
+flutter emulators
+# Lista os emuladores Android configurados.
+
+
+
+flutter emulators --launch <nome-do-emulador>
+# Inicia um emulador Android pelo nome.
+
+
+==================================================
+[EXECUTAR O APLICATIVO]
+==================================================
+
+flutter run
+# Executa o aplicativo no dispositivo/emulador disponível.
+
+
+
+flutter run -d <device-id>
+# Executa o aplicativo em um dispositivo específico.
+# Use 'flutter devices' para ver os IDs disponíveis.
+
+
+
+flutter run -d chrome
+# Executa o aplicativo no Google Chrome.
+
+
+
+flutter run -d windows
+# Executa o aplicativo como aplicação Windows.
+
+
+
+r
+# Faz hot reload enquanto o comando "flutter run"
+# está em execução.
+
+
+
+R
+# Faz hot restart enquanto o "flutter run"
+# está em execução.
+
+
+
+q
+# Encerra o "flutter run".
+
+
+
+d
+# Desconecta o terminal do aplicativo sem encerrá-lo.
+
+
+
+==================================================
+[DEPENDÊNCIAS]
+==================================================
+
+flutter pub get
+# Baixa/instala as dependências especificadas
+# no arquivo pubspec.yaml.
+
+
+
+flutter pub add <pacote>
+# Adiciona um pacote ao projeto e atualiza o pubspec.yaml.
+
+
+
+flutter pub add flutter_blue_plus
+# Adiciona a biblioteca FlutterBluePlus para comunicação BLE.
+
+
+
+flutter pub remove <pacote>
+# Remove uma dependência do projeto.
+
+
+
+==================================================
+[TESTES]
+==================================================
+
+flutter test
+# Executa todos os testes automatizados do projeto.
+
+
+
+flutter test test/widget_test.dart
+# Executa especificamente o teste de widget.
+
+
+
+==================================================
+[ANÁLISE DO CÓDIGO]
+==================================================
+
+flutter analyze
+# Analisa o código Dart procurando erros, warnings
+# e problemas de lint.
+
+
+
+==================================================
+[BUILD]
+==================================================
+
+flutter build apk
+# Gera uma versão APK do aplicativo Android.
+
+
+
+flutter build apk --debug
+# Gera uma versão APK de desenvolvimento/debug.
+
+
+
+flutter build apk --release
+# Gera uma versão APK otimizada para distribuição.
+
+
+
+==================================================
+[GIT - CONFIGURAÇÃO]
+==================================================
+
+git status
+# Mostra o estado atual do repositório:
+# arquivos modificados, novos arquivos e arquivos
+# preparados para commit.
+
+
+
+git init
+# Inicializa um repositório Git na pasta atual.
+
+
+
+git branch -M main
+# Define o nome da branch principal como "main".
+
+
+
+git remote -v
+# Mostra os repositórios remotos conectados ao projeto.
+
+
+
+git remote add origin <URL>
+# Conecta o projeto local a um repositório remoto do GitHub.
+
+
+
+==================================================
+[GIT - VERSIONAMENTO]
+==================================================
+
+git add .
+# Adiciona todas as alterações do projeto para o próximo commit.
+
+
+
+git add <arquivo>
+# Adiciona somente um arquivo específico ao próximo commit.
+
+
+
+git commit -m "mensagem"
+# Cria um commit com as alterações adicionadas.
+
+
+
+git log --oneline
+# Mostra o histórico de commits de forma resumida.
+
+
+
+git push
+# Envia os commits locais para o repositório remoto.
+
+
+
+git push -u origin main
+# Envia a branch main para o GitHub e estabelece
+# a conexão padrão entre a branch local e a remota.
+
+
+
+git pull
+# Baixa as alterações do repositório remoto e
+# integra com o projeto local.
+
+
+
+==================================================
+[GIT - FLUXO NORMAL DO PROJETO]
+==================================================
+
+flutter test
+# Verifica se os testes continuam passando.
+
+
+
+git status
+# Verifica quais arquivos foram alterados.
+
+
+
+git add .
+# Prepara as alterações para o commit.
+
+
+
+git commit -m "tipo: descrição"
+# Registra as alterações no histórico.
+
+
+
+git push
+# Envia as alterações para o GitHub.
+
+
+
+==================================================
+[EXEMPLO DE COMMIT]
+==================================================
+
+git add .
+git commit -m "feat: adiciona descoberta de dispositivos BLE"
+git push
+
+# Fluxo usado para implementar uma nova funcionalidade.
+
+
+
+==================================================
+[ANDROID / EMULADOR]
+==================================================
+
+adb devices
+# Lista os dispositivos Android conectados e emuladores ativos.
+
+
+
+adb kill-server
+# Encerra o servidor ADB.
+
+
+
+adb start-server
+# Inicia novamente o servidor ADB.
+
+
+
+==================================================
+[EMULADOR ANDROID]
+==================================================
+
+emulator -accel-check
+# Verifica se a aceleração de hardware do Android Emulator
+# está disponível.
+
+
+
+emulator -avd <NOME_DO_AVD>
+# Inicia diretamente um AVD usando o executável do Android Emulator.
+# O emulador deve estar no PATH do sistema.
+
+
+
+==================================================
+[SDK / ANDROID]
+==================================================
+
+sdkmanager --list
+# Lista os pacotes disponíveis no Android SDK.
+# O sdkmanager deve estar no PATH do sistema.
+
+
+
+sdkmanager --licenses
+# Exibe e permite aceitar as licenças do Android SDK.
+# O sdkmanager deve estar no PATH do sistema.
+
+
+
+==================================================
+[OBSERVAÇÃO]
+==================================================
+
+# O projeto atualmente utiliza:
+#
+# Flutter 3.47.6
+# Dart 3.13.5
+# Android Emulator
+# Git + GitHub
+# VS Code
+#
+# O desenvolvimento BLE será feito utilizando:
+#
+# flutter_blue_plus
+==================================================
