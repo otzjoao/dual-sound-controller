@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dual Sound Controller · dois aparelhos de áudio, um app só</title>
+<meta name="description" content="App Flutter em desenvolvimento para encontrar, conectar e controlar dispositivos de áudio por Bluetooth, de uma tela só.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>try{if(localStorage.getItem('skin')==='app')document.documentElement.setAttribute('data-skin','app')}catch(e){}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#"><span class="dots" aria-hidden="true"><i></i><i></i></span>Dual Sound</a>
+    <nav aria-label="Seções">
+      <a href="#estado">Onde está</a><a href="#ble">BLE e áudio</a><a href="#roadmap">Roadmap</a><a href="#rodar">Rodar</a><a href="https://github.com/otzjoao/dual-sound-controller">GitHub</a>
+      <span class="skin" role="group" aria-label="Tema de cores"><button type="button" data-skin="original" aria-pressed="true"><i class="sw-o"></i>Original</button><button type="button" data-skin="app" aria-pressed="false"><i class="sw-a"></i>App</button></span>
+    </nav>
+  </header>
+
+  <main>
+  <div class="hero">
+    <div>
+      <span class="badge">Em desenvolvimento</span>
+      <h1>Dois aparelhos de áudio. Um app só.</h1>
+      <p class="lead">O Dual Sound Controller é um app mobile feito em Flutter para encontrar, conectar e controlar dispositivos de áudio por Bluetooth, tudo de uma tela só.</p>
+      <div class="btns">
+        <a class="btn primary" href="#rodar">Rodar o projeto</a>
+        <a class="btn" href="https://github.com/otzjoao/dual-sound-controller">Ver no GitHub</a>
+      </div>
+    </div>
+    <div>
+      <figure class="shot"><img src="images/Home_screen.png" width="535" height="906" alt="Tela inicial do Dual Sound Controller: título Seus dispositivos, card Nenhum dispositivo conectado e botão Buscar dispositivos"><figcaption>Tela inicial do app, rodando no Android.</figcaption></figure>
+    </div>
+  </div>
+
+  <section id="estado">
+    <h2>Onde o projeto está</h2>
+    <div class="prose">
+      <p><strong>A base está pronta.</strong> O app abre numa tela inicial com o nome, a seção de dispositivos, o card com o estado de conexão e o botão de busca. A interface já está separada em <strong>telas</strong> e <strong>widgets</strong>, e existe um teste de widget que confere a renderização.</p>
+      <p><strong>A parte Bluetooth ainda não existe.</strong> Hoje o botão não procura nada de verdade. A próxima etapa é adicionar a biblioteca BLE e criar o serviço que descobre e conecta dispositivos.</p>
+    </div>
+    <div class="split">
+      <div class="box a"><h3>Já funciona</h3><ul><li>Projeto Flutter configurado para Android</li><li>Tela inicial e card de dispositivo</li><li>Teste de widget passando</li><li>Código publicado no GitHub</li></ul></div>
+      <div class="box b"><h3>O que vem agora</h3><ul><li>Busca de dispositivos BLE</li><li>Conectar e desconectar</li><li>Lista de dispositivos encontrados</li><li>Serviços e características GATT</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>O que o app quer fazer</h2>
+    <div class="prose"><p>A ideia é centralizar o gerenciamento de dispositivos de áudio numa interface única e simples.</p></div>
+    <ul class="cols">
+      <li>Buscar dispositivos próximos</li><li>Identificar o que foi encontrado</li>
+      <li>Conectar e desconectar</li><li>Reunir os conectados numa tela só</li>
+      <li>Ler e escrever características BLE</li><li>Investigar controle de volume</li>
+      <li>Estudar sincronização de áudio</li><li>Rodar com testes automatizados</li>
+    </ul>
+  </section>
+
+  <section id="ble">
+    <h2>Por que BLE não é áudio</h2>
+    <div class="prose">
+      <p>Bluetooth de baixa energia (BLE) serve para conversar com um dispositivo por serviços e características. Ele <strong>não</strong> é o caminho que as caixas de som usam para tocar música, que costuma ser Bluetooth Classic com A2DP.</p>
+      <p>Por isso o projeto trata as duas coisas separado: primeiro <strong>descoberta, conexão e controle</strong> por BLE, depois uma pesquisa à parte sobre <strong>saída e sincronização de áudio</strong>, que muda de Android para iOS. Essa investigação faz parte do desenvolvimento.</p>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <h2>Roadmap</h2>
+    <ol class="road">
+      <li class="done"><h3>Fase 1 · Estrutura inicial <span class="tag">concluída</span></h3><p>Projeto Flutter, ambiente Android, interface inicial, teste de widget, Git e GitHub.</p></li>
+      <li class="now"><h3>Fase 2 · Bluetooth/BLE <span class="tag">próxima</span></h3><p>Biblioteca BLE, modelo de dispositivo, serviço Bluetooth, descoberta, conexão e desconexão.</p></li>
+      <li><h3>Fase 3 · Controle dos dispositivos <span class="tag">planejada</span></h3><p>Leitura e escrita de características, controle individual e investigação de volume.</p></li>
+      <li><h3>Fase 4 · Áudio <span class="tag">planejada</span></h3><p>Limites do áudio Bluetooth, A2DP e sincronização entre dispositivos no Android e no iOS.</p></li>
+      <li><h3>Fase 5 · Refinamento <span class="tag">planejada</span></h3><p>Animações, tratamento de erros, mais testes, documentação e uma versão para demonstrar.</p></li>
+    </ol>
+  </section>
+
+  <section id="rodar">
+    <h2>Rodar na sua máquina</h2>
+    <div class="prose"><p>Você precisa do Flutter SDK, do Android SDK, do Git e de um celular Android ou emulador. Confira a instalação com <code>flutter doctor</code> e depois:</p></div>
+<pre><code>git clone https://github.com/otzjoao/dual-sound-controller.git
+cd dual-sound-controller
+flutter pub get
+flutter devices
+flutter run</code></pre>
+    <div class="prose" style="margin-top:1rem"><p>Para rodar os testes, use <code>flutter test</code>.</p></div>
+  </section>
+
+  <section>
+    <h2>Feito pra estudar</h2>
+    <div class="prose"><p>O Dual Sound Controller é um projeto acadêmico e experimental, criado para praticar desenvolvimento mobile, arquitetura, comunicação BLE, testes e versionamento durante a graduação em Engenharia de Software.</p></div>
+    <ul class="stack"><li>Flutter</li><li>Dart</li><li>Android</li><li>Bluetooth / BLE</li><li>Git e GitHub</li><li>VS Code</li></ul>
+  </section>
+  </main>
+
+  <footer>
+    <p><a href="https://github.com/otzjoao/dual-sound-controller">Código no GitHub</a> · Projeto de João Victor Ortiz</p>
+    <p>A licença ainda não foi definida.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, btns=document.querySelectorAll('.skin button');
+  function set(s){
+    if(s==='app')root.setAttribute('data-skin','app'); else root.removeAttribute('data-skin');
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.skin===s));});
+    try{localStorage.setItem('skin',s);}catch(e){}
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){set(b.dataset.skin);});});
+  set(root.getAttribute('data-skin')==='app'?'app':'original');
+})();
+</script>
+</body>
+</html>
