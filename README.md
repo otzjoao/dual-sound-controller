@@ -286,7 +286,7 @@ Representação simplificada:
 
 ### Tela inicial
 
-![Tela inicial do Dual Sound](docs/images/home-screen.png){width=400}
+![Tela inicial do Dual Sound](docs/images/Home_screen.png){width=400}
 
 > **Status:** esta captura representa a interface atual do projeto. A implementação da comunicação Bluetooth/BLE e das funcionalidades de áudio ainda faz parte das próximas etapas do desenvolvimento.
 
