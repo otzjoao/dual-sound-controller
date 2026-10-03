@@ -10,6 +10,7 @@
 - [BLE e áudio](#-ble-e-áudio)
 - [Arquitetura](#️-arquitetura)
 - [Interface atual](#-interface-atual)
+  - [Tela inicial](#-tela-inicial)
 - [Testes](#-testes)
 - [Tecnologias](#️-tecnologias)
 - [Ambiente de desenvolvimento](#-ambiente-de-desenvolvimento)
@@ -18,16 +19,22 @@
 - [Roadmap](#️-roadmap)
 - [Controle de versão](#-controle-de-versão)
 - [Contexto acadêmico](#-contexto-acadêmico)
-- [Licença](#-licença)
+- [Estado atual do projeto](#-estado-atual-do-projeto)
+- [Próximo passo](#-próximo-passo)
+- [Documentação](#-documentação)
+- [Repositório](#-repositório)
 - [Autor](#-autor)
+- [Licença](#-licença)
 
 </details>
 
-Aplicativo mobile desenvolvido em **Flutter** com a proposta de controlar e futuramente sincronizar dispositivos de áudio através de comunicação sem fio.
+---
 
-O **Dual Sound Controller** nasceu da ideia de criar uma solução inspirada em aplicações de sincronização de áudio, permitindo trabalhar com múltiplos dispositivos de áudio a partir de uma interface única e simples.
+Aplicativo mobile desenvolvido em **Flutter** com o objetivo de explorar o gerenciamento e controle de dispositivos de áudio Bluetooth/BLE a partir de uma única interface.
 
-> 🚧 **Status do projeto:** Em desenvolvimento
+O projeto está sendo desenvolvido como estudo prático de **Flutter, Bluetooth Low Energy (BLE), arquitetura de aplicações mobile e integração com recursos nativos do Android/iOS**.
+
+> ⚠️ **Status atual:** a interface inicial está implementada e testada. A comunicação Bluetooth/BLE e o controle efetivo de áudio ainda estão em desenvolvimento.
 
 ---
 
@@ -35,15 +42,15 @@ O **Dual Sound Controller** nasceu da ideia de criar uma solução inspirada em 
 
 O Dual Sound Controller é um projeto acadêmico e experimental desenvolvido para estudar, na prática, conceitos de:
 
-* Desenvolvimento mobile com Flutter;
-* Arquitetura de aplicações;
-* Comunicação Bluetooth/BLE;
-* Descoberta e gerenciamento de dispositivos;
-* Comunicação entre dispositivos;
-* Controle de características de dispositivos BLE;
-* Organização de código e separação de responsabilidades;
-* Testes automatizados;
-* Versionamento com Git e GitHub.
+- Desenvolvimento mobile com Flutter
+- Arquitetura de aplicações
+- Comunicação Bluetooth/BLE
+- Descoberta e gerenciamento de dispositivos
+- Comunicação entre dispositivos
+- Controle de características de dispositivos BLE
+- Organização de código e separação de responsabilidades
+- Testes automatizados
+- Versionamento com Git e GitHub
 
 A proposta final do projeto é permitir que o usuário visualize dispositivos compatíveis, estabeleça conexões e tenha uma interface centralizada para gerenciamento dos dispositivos de áudio.
 
@@ -57,16 +64,16 @@ Desenvolver uma aplicação mobile capaz de gerenciar dispositivos de áudio atr
 
 ### Objetivos específicos
 
-* [ ] Criar uma interface mobile intuitiva;
-* [ ] Implementar descoberta de dispositivos Bluetooth/BLE;
-* [ ] Identificar dispositivos encontrados;
-* [ ] Permitir conexão e desconexão;
-* [ ] Organizar dispositivos conectados em uma interface central;
-* [ ] Investigar características e serviços BLE disponíveis;
-* [ ] Implementar controles compatíveis com os dispositivos;
-* [ ] Estudar possibilidades de sincronização de áudio;
-* [ ] Implementar testes automatizados;
-* [ ] Documentar a arquitetura e as decisões técnicas.
+- [ ] Criar uma interface mobile intuitiva
+- [ ] Implementar descoberta de dispositivos Bluetooth/BLE
+- [ ] Identificar dispositivos encontrados
+- [ ] Permitir conexão e desconexão
+- [ ] Organizar dispositivos conectados em uma interface central
+- [ ] Investigar características e serviços BLE disponíveis
+- [ ] Implementar controles compatíveis com os dispositivos
+- [ ] Estudar possibilidades de sincronização de áudio
+- [ ] Implementar testes automatizados
+- [ ] Documentar a arquitetura e as decisões técnicas
 
 ---
 
@@ -107,6 +114,12 @@ Um ponto importante do projeto é a diferença entre **Bluetooth Low Energy (BLE
 
 O BLE pode ser utilizado para comunicação através de serviços e características GATT, porém isso não significa que uma aplicação Flutter possa simplesmente utilizar BLE para transmitir áudio para qualquer caixa de som Bluetooth convencional.
 
+O pacote `flutter_blue_plus` pode ser utilizado para comunicação BLE, permitindo descobrir dispositivos, estabelecer conexões e trabalhar com serviços e características GATT.
+
+Entretanto, isso **não significa que o aplicativo poderá enviar diretamente áudio para qualquer caixa Bluetooth através de BLE**.
+
+O áudio Bluetooth convencional normalmente utiliza protocolos e perfis específicos, como A2DP, que possuem integração diferente com o sistema operacional.
+
 Por isso, o projeto trata duas áreas de forma separada:
 
 ```text
@@ -116,7 +129,7 @@ Bluetooth/BLE
       ├── Conexão
       ├── Serviços
       └── Características
-       
+      
 Áudio
       │
       ├── Saída de áudio
@@ -129,47 +142,58 @@ A investigação dessa segunda camada faz parte do desenvolvimento do projeto.
 
 ---
 
-# 🏗️ Arquitetura
+## 🏗️ Arquitetura
 
-A estrutura do projeto está sendo organizada para separar interface, componentes reutilizáveis, modelos e serviços.
+A estrutura do projeto foi organizada para separar interface, modelos e serviços.
 
 ```text
-lib/
-├── main.dart
+dual_sound_controller/
 │
-├── models/
-│   └── bluetooth_device_model.dart
+├── android/
+├── ios/
+├── lib/
+│   ├── main.dart
+│   │
+│   ├── models/
+│   │   └── bluetooth_device_model.dart
+│   │
+│   ├── screens/
+│   │   └── home_screen.dart
+│   │
+│   ├── services/
+│   │   └── bluetooth_service.dart
+│   │
+│   └── widgets/
+│       ├── device_card.dart
+│       ├── volume_control.dart
+│       └── equalizer.dart
 │
-├── screens/
-│   └── home_screen.dart
+├── test/
+│   └── widget_test.dart
 │
-├── services/
-│   └── bluetooth_service.dart
+├── docs/
+│   └── images/
+│       └── home-screen.png
 │
-└── widgets/
-    └── device_card.dart
+├── pubspec.yaml
+├── README.md
+└── .gitignore
 ```
+
+> Alguns arquivos e serviços da estrutura acima representam a arquitetura planejada para as próximas etapas e podem ainda não possuir implementação completa.
 
 ### `main.dart`
 
-Responsável pelo ponto de entrada da aplicação e pela configuração inicial do aplicativo.
-
-Também define:
-
-* Tema;
-* Nome da aplicação;
-* Configurações globais;
-* Tela inicial.
+Responsável pela inicialização da aplicação e configuração principal do tema.
 
 ### `screens/`
 
-Contém as telas principais da aplicação.
+Contém as telas da aplicação.
 
 Atualmente:
 
 ```text
-screens/
-└── home_screen.dart
+home_screen.dart
 ```
 
 A `HomeScreen` apresenta os dispositivos e será posteriormente conectada à camada Bluetooth.
@@ -178,30 +202,31 @@ A `HomeScreen` apresenta os dispositivos e será posteriormente conectada à cam
 
 Contém componentes reutilizáveis da interface.
 
-Atualmente:
+Exemplo:
 
 ```text
-widgets/
-└── device_card.dart
+device_card.dart
+volume_control.dart
+equalizer.dart
 ```
 
-O `DeviceCard` representa visualmente um dispositivo e seu estado de conexão.
+A ideia é manter os componentes independentes para facilitar futuras alterações na interface.
 
 ### `models/`
 
-Será utilizado para representar os dados utilizados pela aplicação.
+Responsável pelos modelos utilizados para representar dados da aplicação.
 
 Exemplo planejado:
 
 ```text
-BluetoothDeviceModel
+bluetooth_device_model.dart
 ```
 
 A utilização de modelos evita que regras de negócio e dados do Bluetooth fiquem diretamente acoplados à interface.
 
 ### `services/`
 
-Concentrará a lógica de comunicação externa da aplicação.
+Camada destinada às operações externas da aplicação.
 
 O serviço Bluetooth será responsável por operações como:
 
@@ -221,17 +246,19 @@ Escrever características
 Desconectar
 ```
 
+Essa camada deverá concentrar a comunicação com o Bluetooth/BLE, mantendo essa lógica separada da interface.
+
 ---
 
-# 🎨 Interface atual
+## 🎨 Interface atual
 
 A primeira versão da interface já possui uma tela inicial com:
 
-* Nome da aplicação;
-* Seção de dispositivos;
-* Estado de conexão;
-* Card de dispositivo;
-* Botão para busca de dispositivos.
+- Nome da aplicação
+- Seção de dispositivos
+- Estado de conexão
+- Card de dispositivo
+- Botão para busca de dispositivos
 
 Representação simplificada:
 
@@ -257,9 +284,36 @@ Representação simplificada:
 └──────────────────────────────────┘
 ```
 
+### Tela inicial
+
+![Tela inicial do Dual Sound](docs/images/home-screen.png){width=400}
+
+> **Status:** esta captura representa a interface atual do projeto. A implementação da comunicação Bluetooth/BLE e das funcionalidades de áudio ainda faz parte das próximas etapas do desenvolvimento.
+
+### Estrutura da interface
+
+```text
+HomeScreen
+├── AppBar
+│   └── Dual Sound
+│
+├── Seção "Seus dispositivos"
+│
+├── DeviceCard
+│   ├── Nome do dispositivo
+│   ├── Estado da conexão
+│   └── Indicador visual
+│
+└── Botão "Buscar dispositivos"
+```
+
+A interface foi dividida em componentes para facilitar a evolução do projeto e evitar que toda a lógica fique concentrada em um único arquivo.
+
 ---
 
-# 🧪 Testes
+## 🧪 Testes
+
+O projeto possui testes automatizados para verificar a renderização básica da tela inicial.
 
 O projeto utiliza o sistema de testes do Flutter através do pacote `flutter_test`.
 
@@ -276,19 +330,27 @@ Buscar dispositivos
 
 Para executar os testes:
 
-```bash
+```powershell
 flutter test
 ```
 
-Resultado atual:
+Resultado esperado:
 
 ```text
-+1: All tests passed!
+00:15 +1: All tests passed!
 ```
+
+Também é possível executar:
+
+```powershell
+flutter analyze
+```
+
+para verificar problemas de análise estática no código.
 
 ---
 
-# 🛠️ Tecnologias
+## 🛠️ Tecnologias
 
 | Tecnologia          | Utilização                               |
 | ------------------- | ---------------------------------------- |
@@ -301,46 +363,91 @@ Resultado atual:
 | **VS Code**         | Ambiente principal de desenvolvimento    |
 | **Android Studio**  | SDK, emulador e ferramentas Android      |
 
+### Flutter
+
+Framework utilizado para desenvolvimento da aplicação mobile.
+
+- Flutter 3.47.6
+- Dart 3.13.5
+- Material 3
+
+### Bluetooth / BLE
+
+A comunicação BLE será estudada utilizando:
+
+- `flutter_blue_plus`
+
+O pacote será responsável pela camada de comunicação BLE da aplicação, enquanto funcionalidades relacionadas ao áudio dependerão de recursos específicos da plataforma.
+
+### Android
+
+O desenvolvimento está sendo realizado inicialmente com foco no Android.
+
+Ambiente utilizado:
+
+- Android SDK 37.0.0
+- Android Emulator
+- Android API 35 para testes
+- Windows 11
+
+### iOS
+
+A compatibilidade com iOS faz parte do planejamento do projeto.
+
+O desenvolvimento e testes nativos para iOS dependerão de um ambiente macOS/Xcode ou de uma solução de build compatível.
+
 ---
 
-# 💻 Ambiente de desenvolvimento
+## 💻 Ambiente de desenvolvimento
 
-O projeto está sendo desenvolvido inicialmente em:
+### Sistema operacional
 
 ```text
-Sistema operacional:
 Windows 11
+```
 
-Framework:
-Flutter
+### Flutter
 
-Linguagem:
-Dart
+```text
+Flutter 3.47.6
+Dart 3.13.5
+```
 
-Plataforma de testes:
-Android
+### Android
 
-IDE:
+```text
+Android SDK 37.0.0
+Android API 35
+```
+
+### IDE
+
+```text
 Visual Studio Code
+Android Studio
+```
 
-Controle de versão:
-Git + GitHub
+### Controle de versão
+
+```text
+Git
+GitHub
 ```
 
 ---
 
-# 🚀 Como executar o projeto
+## 🚀 Como executar o projeto
 
-## Pré-requisitos
+### Pré-requisitos
 
 É necessário possuir:
 
-* Flutter SDK;
-* Dart SDK;
-* Android SDK;
-* Android Studio ou ferramentas equivalentes;
-* Um dispositivo Android físico ou emulador;
-* Git.
+- Flutter SDK
+- Dart SDK
+- Android SDK
+- Android Studio ou ferramentas equivalentes
+- Um dispositivo Android físico ou emulador
+- Git
 
 Verifique a instalação do Flutter:
 
@@ -348,45 +455,45 @@ Verifique a instalação do Flutter:
 flutter doctor
 ```
 
-Clone o projeto:
+Clone o repositório:
 
-```bash
+```powershell
 git clone https://github.com/otzjoao/dual-sound-controller.git
 ```
 
 Entre na pasta:
 
-```bash
+```powershell
 cd dual-sound-controller
 ```
 
 Instale as dependências:
 
-```bash
+```powershell
 flutter pub get
 ```
 
 Verifique os dispositivos disponíveis:
 
-```bash
+```powershell
 flutter devices
 ```
 
-Execute a aplicação:
+Execute no dispositivo desejado:
 
-```bash
+```powershell
 flutter run
 ```
 
-Para executar especificamente em um dispositivo Android:
+Ou especifique o dispositivo:
 
-```bash
-flutter run -d <device_id>
+```powershell
+flutter run -d emulator-5554
 ```
 
 ---
 
-# 📂 Estrutura do projeto
+## 📂 Estrutura do projeto
 
 ```text
 dual-sound-controller/
@@ -417,61 +524,71 @@ dual-sound-controller/
 
 ---
 
-# 🗺️ Roadmap
+## 🗺️ Roadmap
 
-O desenvolvimento será realizado de forma incremental.
+### ✅ Etapa 1 — Configuração do ambiente
 
-### Fase 1 — Estrutura inicial
+- [x] Instalação do Flutter
+- [x] Configuração do Android SDK
+- [x] Configuração do Android Emulator
+- [x] Criação do projeto Flutter
+- [x] Configuração do Git
+- [x] Criação do repositório no GitHub
 
-* [x] Criar projeto Flutter
-* [x] Configurar ambiente Android
-* [x] Criar interface inicial
-* [x] Separar `screens` e `widgets`
-* [x] Criar teste de widget
-* [x] Configurar Git
-* [x] Publicar projeto no GitHub
+### ✅ Etapa 2 — Interface inicial
 
-### Fase 2 — Bluetooth/BLE
+- [x] Criação do tema
+- [x] Criação da `HomeScreen`
+- [x] Criação do `DeviceCard`
+- [x] Indicador de conexão
+- [x] Botão de busca
+- [x] Organização dos widgets
+- [x] Teste automatizado da tela inicial
+- [x] Screenshot da interface
 
-* [ ] Adicionar biblioteca BLE
-* [ ] Criar modelo de dispositivo
-* [ ] Criar serviço Bluetooth
-* [ ] Implementar descoberta
-* [ ] Exibir dispositivos encontrados
-* [ ] Implementar conexão
-* [ ] Implementar desconexão
-* [ ] Descobrir serviços e características
+### 🔄 Etapa 3 — Bluetooth/BLE
 
-### Fase 3 — Controle dos dispositivos
+- [ ] Adicionar `flutter_blue_plus`
+- [ ] Solicitar permissões Bluetooth
+- [ ] Detectar dispositivos próximos
+- [ ] Exibir dispositivos encontrados
+- [ ] Conectar a um dispositivo
+- [ ] Desconectar dispositivo
+- [ ] Monitorar estado da conexão
+- [ ] Descobrir serviços BLE
+- [ ] Descobrir características BLE
 
-* [ ] Identificar características disponíveis
-* [ ] Implementar leitura de dados
-* [ ] Implementar escrita de dados
-* [ ] Criar controle individual dos dispositivos
-* [ ] Investigar controle de volume
-* [ ] Criar interface de gerenciamento
+### 🔄 Etapa 4 — Controle dos dispositivos
 
-### Fase 4 — Áudio
+- [ ] Criar modelo de dispositivo
+- [ ] Criar serviço Bluetooth
+- [ ] Associar dispositivos encontrados à interface
+- [ ] Implementar estado real de conexão
+- [ ] Investigar características de controle disponíveis
+- [ ] Implementar controle de volume quando suportado pelo dispositivo
 
-* [ ] Pesquisar limitações de áudio Bluetooth
-* [ ] Avaliar Bluetooth Classic/A2DP
-* [ ] Investigar sincronização entre dispositivos
-* [ ] Avaliar possibilidades específicas de Android
-* [ ] Avaliar possibilidades específicas de iOS
-* [ ] Definir arquitetura final de áudio
+### 🔄 Etapa 5 — Áudio
 
-### Fase 5 — Refinamento
+- [ ] Pesquisar integração com áudio nativo
+- [ ] Investigar Bluetooth Classic/A2DP
+- [ ] Estudar limitações do Android
+- [ ] Estudar limitações do iOS
+- [ ] Avaliar sincronização de reprodução
+- [ ] Avaliar possibilidade de múltiplos dispositivos
+- [ ] Definir arquitetura final da camada de áudio
 
-* [ ] Melhorar interface
-* [ ] Criar animações e estados de carregamento
-* [ ] Melhorar tratamento de erros
-* [ ] Adicionar testes
-* [ ] Melhorar documentação
-* [ ] Preparar versão demonstrável
+### 🔄 Etapa 6 — Interface avançada
+
+- [ ] Controle individual de volume
+- [ ] Equalizador
+- [ ] Estado detalhado dos dispositivos
+- [ ] Tela de configurações
+- [ ] Feedback de conexão
+- [ ] Animações e melhorias de UX
 
 ---
 
-# 🔐 Controle de versão
+## 🔐 Controle de versão
 
 O projeto utiliza Git para controle de versão.
 
@@ -491,40 +608,121 @@ O repositório oficial está disponível em:
 
 ---
 
-# 🎓 Contexto acadêmico
+## 🎓 Contexto acadêmico
 
 O Dual Sound Controller também funciona como projeto de estudo para aplicação prática dos conhecimentos adquiridos durante a graduação em **Engenharia de Software**.
 
 Além da implementação, o projeto busca aplicar conceitos de:
 
-* Engenharia de requisitos;
-* Arquitetura de software;
-* Desenvolvimento mobile;
-* Programação orientada a objetos;
-* Separação de responsabilidades;
-* Testes de software;
-* Controle de versão;
-* Documentação técnica;
-* Pesquisa e análise de tecnologias.
+- Engenharia de requisitos
+- Arquitetura de software
+- Desenvolvimento mobile
+- Programação orientada a objetos
+- Separação de responsabilidades
+- Testes de software
+- Controle de versão
+- Documentação técnica
+- Pesquisa e análise de tecnologias
+- Integração entre software e recursos do sistema operacional
 
 ---
 
-# 📄 Licença
+## 📌 Estado atual do projeto
 
-Este projeto encontra-se em desenvolvimento para fins acadêmicos e experimentais.
+**Versão atual:** protótipo inicial da interface.
 
-A definição de uma licença específica será realizada posteriormente.
+O projeto atualmente possui:
+
+```text
+✅ Projeto Flutter configurado
+✅ Interface inicial
+✅ Tema escuro
+✅ Componentização básica
+✅ DeviceCard
+✅ Teste automatizado
+✅ Ambiente Android configurado
+✅ Repositório GitHub
+✅ Documentação inicial
+✅ Screenshot da interface
+```
+
+Ainda não estão implementados:
+
+```text
+❌ Descoberta BLE real
+❌ Conexão BLE real
+❌ Comunicação com características GATT
+❌ Controle real de volume
+❌ Reprodução de áudio
+❌ Sincronização de áudio
+❌ Reprodução em múltiplos dispositivos
+```
+
+---
+
+## 🔮 Próximo passo
+
+O próximo marco de desenvolvimento será a implementação da camada Bluetooth/BLE.
+
+A primeira funcionalidade prática será:
+
+```text
+Buscar dispositivos
+        ↓
+Solicitar permissões
+        ↓
+Iniciar scan BLE
+        ↓
+Receber dispositivos encontrados
+        ↓
+Exibir dispositivos na interface
+        ↓
+Selecionar dispositivo
+        ↓
+Estabelecer conexão
+```
+
+Somente depois dessa etapa será iniciada a investigação da camada de áudio.
+
+---
+
+## 📁 Documentação
+
+Materiais complementares do projeto podem ser armazenados na pasta:
+
+```text
+docs/
+```
+
+Exemplo:
+
+```text
+docs/
+├── images/
+│   └── home-screen.png
+└── ...
+```
+
+---
+
+## 🔗 Repositório
+
+GitHub:
+
+**https://github.com/otzjoao/dual-sound-controller**
 
 ---
 
 ## 👨‍💻 Autor
 
-**João Victor Ortiz**
+**João Ortiz**
 
-Projeto desenvolvido como parte dos estudos em **Engenharia de Software**.
+Projeto desenvolvido para estudos em Engenharia de Software.
 
 ---
 
-> 🎧 **Dual Sound Controller**
->
-> *Conectando tecnologia, software e áudio.*
+## 📄 Licença
+
+Projeto acadêmico e experimental.
+
+A utilização, modificação e distribuição do código devem respeitar a finalidade definida pelo autor do projeto.
